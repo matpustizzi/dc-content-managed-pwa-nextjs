@@ -12,13 +12,16 @@ import EditorialBlock from '../components/EditorialBlock';
 import HeroBannerBlock from '../components/HeroBannerBlock';
 import GalleryBlock from '../components/GalleryBlock';
 import Sidebar from '../components/Sidebar';
-import { fetchContent } from '../utils/fetchContent';
+import { fetchContent, fetchContentById } from '../utils/fetchContent';
 
 interface Props {
     navigation: {
       navigation:{
         links: {title: string, href: string}[]
       }
+    },
+    promoBanner: {
+      description: string
     },
     slot: {
         components: any[]
@@ -28,6 +31,7 @@ interface Props {
 const Index: NextPage<Props> = (props: Props) => {
   let {
       navigation,
+      promoBanner,
       slot
   } = props;
 
@@ -66,7 +70,7 @@ const Index: NextPage<Props> = (props: Props) => {
       </Head>
       
       <div>
-        <PromoBanner>ORDER BEFORE 1PM FOR NEXT DAY DELIVERY</PromoBanner>
+        <PromoBanner description={ promoBanner.description }></PromoBanner>
 
         <Header actions={<UserActions />}
           search={<SearchBox />}
@@ -91,6 +95,9 @@ const Index: NextPage<Props> = (props: Props) => {
                     case 'GalleryBlock':
                         ComponentType = GalleryBlock;
                         break;
+                    case 'PromoBanner':
+                        ComponentType = PromoBanner;
+                        break;
                 }
                 
                 return <ComponentType {...component} />;
@@ -108,10 +115,12 @@ const Index: NextPage<Props> = (props: Props) => {
 Index.getInitialProps = async (context) => {
   const navigation = fetchContent('slots/navigation', context);
   const slot = fetchContent('slots/homepage-hero', context);
-
+  const promoBanner = fetchContentById('e349042e-6e57-4a03-8246-a1ea1e042cb8', context);
+  console.log(await promoBanner)
   return {
     navigation: await navigation,
-    slot: await slot
+    slot: await slot,
+    promoBanner: await promoBanner
   };
 };
 

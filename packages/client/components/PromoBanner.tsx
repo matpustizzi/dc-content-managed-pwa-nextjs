@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { withStyles, WithStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
+import ReactMarkdown from 'react-markdown';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -17,6 +18,7 @@ const styles = (theme: Theme) => ({
 interface Props extends PropsWithChildren<WithStyles<typeof styles>> {
     className?: string;
     style?: React.CSSProperties;
+    description?: string;
 }
 
 const PromoBanner: React.SFC<Props> = (props) => {
@@ -24,12 +26,13 @@ const PromoBanner: React.SFC<Props> = (props) => {
         classes,
         className,
         children,
+        description,
         ...other
     } = props;
 
     return (
         <div className={clsx(classes.root, className)} {...other}>
-            {children}
+            <ReactMarkdown source={description} />
         </div>
     );
 };
