@@ -116,7 +116,7 @@ Index.getInitialProps = async (context) => {
   const navigation = fetchContent('slots/navigation', context);
   const slot = fetchContent('slots/homepage-hero', context);
   const promoBanner = fetchContentById('e349042e-6e57-4a03-8246-a1ea1e042cb8', context);
-  console.log(await promoBanner)
+  
   return {
     navigation: await navigation,
     slot: await slot,
