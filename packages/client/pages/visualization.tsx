@@ -16,7 +16,7 @@ const Visualization: NextPage<Props> = (props: Props) => {
     let {
         component
     } = props;
-
+    
     let ComponentType = null;
 
     switch (component.component) {
